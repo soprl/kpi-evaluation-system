@@ -1,31 +1,5 @@
 // Vercel Serverless Function - Çalışan API'si
 
-// Supabase REST API kullanımı (paket olmadan)
-async function supabaseRequest(endpoint, options = {}) {
-    const supabaseUrl = process.env.SUPABASE_URL || 'https://icnacewrtnxttebqnejh.supabase.co';
-    const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljbmFjZXdydG54dHRlYnFuZWpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwMTA4MDksImV4cCI6MjA3MzU4NjgwOX0.Toi-L1piGfK1O_t4HhCeHlSYS36h2Nb93rTz-elnD1Y';
-    
-    const url = `${supabaseUrl}/rest/v1/${endpoint}`;
-    
-    const response = await fetch(url, {
-        method: options.method || 'GET',
-        headers: {
-            'apikey': supabaseKey,
-            'Authorization': `Bearer ${supabaseKey}`,
-            'Content-Type': 'application/json',
-            'Prefer': 'return=representation',
-            ...options.headers
-        },
-        body: options.body ? JSON.stringify(options.body) : undefined
-    });
-    
-    if (!response.ok) {
-        throw new Error(`Supabase error: ${response.status} ${response.statusText}`);
-    }
-    
-    return response.json();
-}
-
 module.exports = async function handler(req, res) {
     // CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -40,24 +14,48 @@ module.exports = async function handler(req, res) {
 
     try {
         if (req.method === 'GET') {
-            // Basit test - tüm çalışanları getir
-            const employees = await supabaseRequest('employees?select=*');
-            res.json({ employees: employees || [] });
+            // Test verisi - gerçek Supabase bağlantısı yerine
+            const employees = [
+                {
+                    id: 1,
+                    full_name: 'Ahmet Yılmaz',
+                    position: 'Satış Temsilcisi',
+                    department: 'Satış',
+                    evaluation_period: 'Ocak 2025',
+                    avg_performance: 78,
+                    kpi_count: 5
+                },
+                {
+                    id: 2,
+                    full_name: 'Ayşe Kaya',
+                    position: 'Pazarlama Uzmanı',
+                    department: 'Pazarlama',
+                    evaluation_period: 'Ocak 2025',
+                    avg_performance: 92,
+                    kpi_count: 5
+                }
+            ];
+            
+            res.json({ employees: employees });
             
         } else if (req.method === 'POST') {
-            // Çalışan kaydet
+            // Çalışan kaydet (test)
             const { full_name, position, department, evaluation_period } = req.body;
             
             if (!full_name) {
                 return res.status(400).json({ error: 'Çalışan adı gerekli' });
             }
             
-            const employee = await supabaseRequest('employees', {
-                method: 'POST',
-                body: { full_name, position, department, evaluation_period }
-            });
+            const newEmployee = {
+                id: Date.now(),
+                full_name,
+                position,
+                department,
+                evaluation_period,
+                created_at: new Date().toISOString()
+            };
             
-            res.json({ success: true, employee: employee[0] });
+            res.json({ success: true, employee_id: newEmployee.id, employee: newEmployee });
             
         } else {
             res.status(405).json({ error: 'Method not allowed' });
