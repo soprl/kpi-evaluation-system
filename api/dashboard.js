@@ -1,7 +1,7 @@
 // Vercel Serverless Function - Dashboard API'si
-import { createConnection } from '../lib/database.js';
+const { createConnection } = require('../lib/database.js');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // CORS headers
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Origin', '*');

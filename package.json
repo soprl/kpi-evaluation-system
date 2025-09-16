@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "KPI Değerlendirme Sistemi - Modern web tabanlı performans değerlendirme uygulaması",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",

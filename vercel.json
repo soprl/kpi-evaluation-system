@@ -3,7 +3,7 @@
   "name": "kpi-evaluation-system",
   "functions": {
     "api/**/*.js": {
-      "runtime": "@vercel/node@18.x",
+      "runtime": "nodejs18.x",
       "maxDuration": 10
     }
   },

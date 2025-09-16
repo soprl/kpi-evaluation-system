@@ -65,44 +65,30 @@ VALUES
     ('Ayşe Kaya', 'Pazarlama Uzmanı', 'Pazarlama', 'Ocak 2025')
 ON CONFLICT DO NOTHING;
 
--- Test KPI verileri
+-- Test KPI verileri - Düzeltilmiş versiyon
+WITH kpi_template AS (
+    SELECT 
+        0 as kpi_index, 'İletilen Fırsat Sayısı' as kpi_title, 25 as target_value, 18 as achieved_value, '' as unit
+    UNION ALL SELECT 
+        1, 'Teklif Gönderildi & Değerlendirme Sürecinde', 15, 12, ''
+    UNION ALL SELECT 
+        2, 'Teklif Siparişe Dönüştü', 10, 8, ''
+    UNION ALL SELECT 
+        3, 'Yeni Müşteri Lead', 20, 16, ''
+    UNION ALL SELECT 
+        4, 'Telefonla Görüşme Süresi', 120, 95, 'dk'
+)
 INSERT INTO kpi_data (employee_id, kpi_index, kpi_title, target_value, achieved_value, unit, percentage)
 SELECT 
     e.id,
-    generate_series(0, 4) as kpi_index,
-    CASE generate_series(0, 4)
-        WHEN 0 THEN 'İletilen Fırsat Sayısı'
-        WHEN 1 THEN 'Teklif Gönderildi & Değerlendirme Sürecinde'
-        WHEN 2 THEN 'Teklif Siparişe Dönüştü'
-        WHEN 3 THEN 'Yeni Müşteri Lead'
-        WHEN 4 THEN 'Telefonla Görüşme Süresi'
-    END as kpi_title,
-    CASE generate_series(0, 4)
-        WHEN 0 THEN 25
-        WHEN 1 THEN 15
-        WHEN 2 THEN 10
-        WHEN 3 THEN 20
-        WHEN 4 THEN 120
-    END as target_value,
-    CASE generate_series(0, 4)
-        WHEN 0 THEN 18
-        WHEN 1 THEN 12
-        WHEN 2 THEN 8
-        WHEN 3 THEN 16
-        WHEN 4 THEN 95
-    END as achieved_value,
-    CASE generate_series(0, 4)
-        WHEN 4 THEN 'dk'
-        ELSE ''
-    END as unit,
-    CASE generate_series(0, 4)
-        WHEN 0 THEN ROUND((18.0/25.0) * 100, 2)
-        WHEN 1 THEN ROUND((12.0/15.0) * 100, 2)
-        WHEN 2 THEN ROUND((8.0/10.0) * 100, 2)
-        WHEN 3 THEN ROUND((16.0/20.0) * 100, 2)
-        WHEN 4 THEN ROUND((95.0/120.0) * 100, 2)
-    END as percentage
+    k.kpi_index,
+    k.kpi_title,
+    k.target_value,
+    k.achieved_value,
+    k.unit,
+    ROUND((k.achieved_value::numeric / k.target_value::numeric) * 100, 2) as percentage
 FROM employees e
+CROSS JOIN kpi_template k
 WHERE e.full_name IN ('Ahmet Yılmaz', 'Ayşe Kaya')
 ON CONFLICT DO NOTHING;
 
