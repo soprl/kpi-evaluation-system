@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Dashboard</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>KPI DASHBOARD</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="location.href='/admin'">
+                        <i class="fas fa-plus"></i> Yeni Değerlendirme
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportAllReports()">
+                        <i class="fas fa-download"></i> Toplu PDF İndir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ana İçerik -->
+    <main class="main-content">
+        <div class="container">
+            <!-- İstatistik Kartları -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalEmployees">0</h3>
+                            <p>Toplam Çalışan</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon performance">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="avgPerformance">0%</h3>
+                            <p>Ortalama Performans</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="topPerformerCount">0</h3>
+                            <p>Yüksek Performans</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon info">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="thisMonthEvaluations">0</h3>
+                            <p>Bu Ay Değerlendirme</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Çalışan Listesi -->
+            <section class="employees-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Tüm Çalışanlar</h2>
+                    <div class="section-actions">
+                        <input type="text" id="searchInput" placeholder="Çalışan ara..." class="search-input">
+                        <select id="departmentFilter" class="filter-select">
+                            <option value="">Tüm Departmanlar</option>
+                        </select>
+                        <select id="performanceFilter" class="filter-select">
+                            <option value="">Tüm Performanslar</option>
+                            <option value="excellent">Mükemmel (%90+)</option>
+                            <option value="good">İyi (%70-89)</option>
+                            <option value="poor">Geliştirilmeli (%70 altı)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="employees-grid" id="employeesGrid">
+                    <!-- Çalışanlar buraya yüklenecek -->
+                </div>
+                
+                <div class="loading" id="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Veriler yükleniyor...</p>
+                </div>
+            </section>
+
+            <!-- En İyi Performans Gösterenler -->
+            <section class="top-performers-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-medal"></i> En İyi Performans Gösterenler</h2>
+                </div>
+                
+                <div class="top-performers-list" id="topPerformersList">
+                    <!-- En iyi performans gösterenler buraya yüklenecek -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Çalışan Detay Modal -->
+    <div id="employeeModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="modalEmployeeName">Çalışan Detayları</h2>
+                <span class="close" onclick="closeEmployeeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Çalışan detayları buraya yüklenecek -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="editEmployee()">
+                    <i class="fas fa-edit"></i> Düzenle
+                </button>
+                <button class="btn btn-success" onclick="downloadEmployeePDF()">
+                    <i class="fas fa-download"></i> PDF İndir
+                </button>
+                <button class="btn btn-secondary" onclick="closeEmployeeModal()">
+                    <i class="fas fa-times"></i> Kapat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mesaj Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalMessage"></div>
+        </div>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+</body>
+</html>

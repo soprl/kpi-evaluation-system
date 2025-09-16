@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Değerlendirme</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-building"></i>
+                    <span>ŞİRKET LOGO</span>
+                </div>
+                <h1 class="main-title">KPI DEĞERLENDİRME</h1>
+                <div class="spacer"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Profile Section -->
+            <section class="profile-section">
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="fullName" class="profile-name">Ahmet Yılmaz</h2>
+                        <p id="position" class="profile-position">Satış Temsilcisi</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KPI Section -->
+            <section class="kpi-section">
+                <div class="kpi-grid">
+                    <!-- KPI Item 1 -->
+                    <div class="kpi-item">
+                        <h3 class="kpi-title">İletilen Fırsat Sayısı</h3>
+                        <div class="kpi-content">
+                            <div class="chart-container">
+                                <canvas class="pie-chart" data-target="25" data-achieved="18"></canvas>
+                            </div>
+                            <div class="kpi-values">
+                                <div class="value-item">
+                                    <span class="value-label">Hedef</span>
+                                    <span class="value-number target">25</span>
+                                </div>
+                                <div class="value-item">
+                                    <span class="value-label">Yapılan</span>
+                                    <span class="value-number achieved">18</span>
+                                </div>
+                                <div class="percentage-item">
+                                    <span class="percentage-label">Başarı Oranı</span>
+                                    <span class="percentage-value">%72</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Item 2 -->
+                    <div class="kpi-item">
+                        <h3 class="kpi-title">Teklif Gönderildi & Değerlendirme Sürecinde</h3>
+                        <div class="kpi-content">
+                            <div class="chart-container">
+                                <canvas class="pie-chart" data-target="15" data-achieved="12"></canvas>
+                            </div>
+                            <div class="kpi-values">
+                                <div class="value-item">
+                                    <span class="value-label">Hedef</span>
+                                    <span class="value-number target">15</span>
+                                </div>
+                                <div class="value-item">
+                                    <span class="value-label">Yapılan</span>
+                                    <span class="value-number achieved">12</span>
+                                </div>
+                                <div class="percentage-item">
+                                    <span class="percentage-label">Başarı Oranı</span>
+                                    <span class="percentage-value">%80</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Item 3 -->
+                    <div class="kpi-item">
+                        <h3 class="kpi-title">Teklif Siparişe Dönüştü</h3>
+                        <div class="kpi-content">
+                            <div class="chart-container">
+                                <canvas class="pie-chart" data-target="10" data-achieved="8"></canvas>
+                            </div>
+                            <div class="kpi-values">
+                                <div class="value-item">
+                                    <span class="value-label">Hedef</span>
+                                    <span class="value-number target">10</span>
+                                </div>
+                                <div class="value-item">
+                                    <span class="value-label">Yapılan</span>
+                                    <span class="value-number achieved">8</span>
+                                </div>
+                                <div class="percentage-item">
+                                    <span class="percentage-label">Başarı Oranı</span>
+                                    <span class="percentage-value">%80</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Item 4 -->
+                    <div class="kpi-item">
+                        <h3 class="kpi-title">Yeni Müşteri Lead</h3>
+                        <div class="kpi-content">
+                            <div class="chart-container">
+                                <canvas class="pie-chart" data-target="20" data-achieved="16"></canvas>
+                            </div>
+                            <div class="kpi-values">
+                                <div class="value-item">
+                                    <span class="value-label">Hedef</span>
+                                    <span class="value-number target">20</span>
+                                </div>
+                                <div class="value-item">
+                                    <span class="value-label">Yapılan</span>
+                                    <span class="value-number achieved">16</span>
+                                </div>
+                                <div class="percentage-item">
+                                    <span class="percentage-label">Başarı Oranı</span>
+                                    <span class="percentage-value">%80</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Item 5 -->
+                    <div class="kpi-item">
+                        <h3 class="kpi-title">Telefonla Görüşme Süresi</h3>
+                        <div class="kpi-content">
+                            <div class="chart-container">
+                                <canvas class="pie-chart" data-target="120" data-achieved="95"></canvas>
+                            </div>
+                            <div class="kpi-values">
+                                <div class="value-item">
+                                    <span class="value-label">Hedef</span>
+                                    <span class="value-number target">120 dk</span>
+                                </div>
+                                <div class="value-item">
+                                    <span class="value-label">Yapılan</span>
+                                    <span class="value-number achieved">95 dk</span>
+                                </div>
+                                <div class="percentage-item">
+                                    <span class="percentage-label">Başarı Oranı</span>
+                                    <span class="percentage-value">%79</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

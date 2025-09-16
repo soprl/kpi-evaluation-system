@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KPI Yönetim Paneli</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span>KPI YÖNETİM PANELİ</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="viewReport()">
+                        <i class="fas fa-eye"></i> Raporu Görüntüle
+                    </button>
+                    <button class="btn btn-primary" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf"></i> PDF İndir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Çalışan Seçimi -->
+            <section class="employee-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Çalışan Yönetimi</h2>
+                </div>
+                <div class="employee-controls">
+                    <div class="employee-selector">
+                        <label for="employeeSelect">Mevcut Çalışan:</label>
+                        <select id="employeeSelect" onchange="loadEmployeeData()">
+                            <option value="">Yeni Çalışan Ekle</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-success" onclick="addNewEmployee()">
+                        <i class="fas fa-plus"></i> Yeni Çalışan
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteEmployee()" id="deleteBtn" style="display:none;">
+                        <i class="fas fa-trash"></i> Sil
+                    </button>
+                </div>
+            </section>
+
+            <!-- Profil Bilgileri -->
+            <section class="profile-form-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user"></i> Profil Bilgileri</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fullName">Ad Soyad:</label>
+                        <input type="text" id="fullName" placeholder="Örnek: Ahmet Yılmaz">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Unvan:</label>
+                        <input type="text" id="position" placeholder="Örnek: Satış Temsilcisi">
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Departman:</label>
+                        <input type="text" id="department" placeholder="Örnek: Satış Departmanı">
+                    </div>
+                    <div class="form-group">
+                        <label for="evaluationPeriod">Değerlendirme Dönemi:</label>
+                        <input type="text" id="evaluationPeriod" placeholder="Örnek: Ocak 2025">
+                    </div>
+                </div>
+            </section>
+
+            <!-- KPI Değerleri -->
+            <section class="kpi-form-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-pie"></i> KPI Değerleri</h2>
+                </div>
+                <div class="kpi-forms">
+                    <!-- KPI 1 -->
+                    <div class="kpi-form-item">
+                        <h3>İletilen Fırsat Sayısı</h3>
+                        <div class="kpi-inputs">
+                            <div class="input-group">
+                                <label>Hedef:</label>
+                                <input type="number" id="kpi1_target" min="0" placeholder="25">
+                            </div>
+                            <div class="input-group">
+                                <label>Yapılan:</label>
+                                <input type="number" id="kpi1_achieved" min="0" placeholder="18">
+                            </div>
+                            <div class="percentage-display" id="kpi1_percentage">%0</div>
+                        </div>
+                    </div>
+
+                    <!-- KPI 2 -->
+                    <div class="kpi-form-item">
+                        <h3>Teklif Gönderildi & Değerlendirme Sürecinde</h3>
+                        <div class="kpi-inputs">
+                            <div class="input-group">
+                                <label>Hedef:</label>
+                                <input type="number" id="kpi2_target" min="0" placeholder="15">
+                            </div>
+                            <div class="input-group">
+                                <label>Yapılan:</label>
+                                <input type="number" id="kpi2_achieved" min="0" placeholder="12">
+                            </div>
+                            <div class="percentage-display" id="kpi2_percentage">%0</div>
+                        </div>
+                    </div>
+
+                    <!-- KPI 3 -->
+                    <div class="kpi-form-item">
+                        <h3>Teklif Siparişe Dönüştü</h3>
+                        <div class="kpi-inputs">
+                            <div class="input-group">
+                                <label>Hedef:</label>
+                                <input type="number" id="kpi3_target" min="0" placeholder="10">
+                            </div>
+                            <div class="input-group">
+                                <label>Yapılan:</label>
+                                <input type="number" id="kpi3_achieved" min="0" placeholder="8">
+                            </div>
+                            <div class="percentage-display" id="kpi3_percentage">%0</div>
+                        </div>
+                    </div>
+
+                    <!-- KPI 4 -->
+                    <div class="kpi-form-item">
+                        <h3>Yeni Müşteri Lead</h3>
+                        <div class="kpi-inputs">
+                            <div class="input-group">
+                                <label>Hedef:</label>
+                                <input type="number" id="kpi4_target" min="0" placeholder="20">
+                            </div>
+                            <div class="input-group">
+                                <label>Yapılan:</label>
+                                <input type="number" id="kpi4_achieved" min="0" placeholder="16">
+                            </div>
+                            <div class="percentage-display" id="kpi4_percentage">%0</div>
+                        </div>
+                    </div>
+
+                    <!-- KPI 5 -->
+                    <div class="kpi-form-item">
+                        <h3>Telefonla Görüşme Süresi (dakika)</h3>
+                        <div class="kpi-inputs">
+                            <div class="input-group">
+                                <label>Hedef:</label>
+                                <input type="number" id="kpi5_target" min="0" placeholder="120">
+                            </div>
+                            <div class="input-group">
+                                <label>Yapılan:</label>
+                                <input type="number" id="kpi5_achieved" min="0" placeholder="95">
+                            </div>
+                            <div class="percentage-display" id="kpi5_percentage">%0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kaydet Butonu -->
+            <section class="save-section">
+                <button class="btn btn-primary btn-large" onclick="saveData()">
+                    <i class="fas fa-save"></i> Verileri Kaydet
+                </button>
+            </section>
+
+            <!-- Genel Başarı Oranı -->
+            <section class="overall-section">
+                <div class="overall-performance">
+                    <h2>Genel Başarı Oranı</h2>
+                    <div class="overall-percentage" id="overallPercentage">%0</div>
+                    <div class="overall-status" id="overallStatus">Veri Girilmedi</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalMessage"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>
