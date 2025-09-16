@@ -1,5 +1,12 @@
 // Vercel Serverless Function - Çalışan API'si
-const { createConnection } = require('../lib/database.js');
+const { createClient } = require('@supabase/supabase-js');
+
+// Supabase bağlantısı
+function getSupabase() {
+    const supabaseUrl = process.env.SUPABASE_URL || 'https://icnacewrtnxttebqnejh.supabase.co';
+    const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImljbmFjZXdydG54dHRlYnFuZWpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgwMTA4MDksImV4cCI6MjA3MzU4NjgwOX0.Toi-L1piGfK1O_t4HhCeHlSYS36h2Nb93rTz-elnD1Y';
+    return createClient(supabaseUrl, supabaseKey);
+}
 
 module.exports = async function handler(req, res) {
     // CORS headers
@@ -14,7 +21,7 @@ module.exports = async function handler(req, res) {
     }
 
     try {
-        const db = await createConnection();
+        const db = getSupabase();
         
         switch (req.method) {
             case 'GET':
